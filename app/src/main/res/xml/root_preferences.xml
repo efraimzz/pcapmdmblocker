@@ -1,0 +1,225 @@
+<!--
+  ~ Copyright 2018 The app Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <PreferenceCategory android:title="@string/http_server" android:iconSpaceReserved="false">
+        <EditTextPreference
+            android:key="http_server_port"
+            android:title="@string/http_server_port"
+            android:defaultValue="8080"
+            android:iconSpaceReserved="false"
+             />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/tcp_udp_exporter" android:iconSpaceReserved="false">
+        <EditTextPreference
+            android:key="collector_ip_address"
+            android:title="@string/receiver_ip_address"
+            android:iconSpaceReserved="false"
+            android:defaultValue="@string/default_collector_ip"
+             />
+
+        <EditTextPreference
+            android:key="collector_port"
+            android:title="@string/receiver_port"
+            android:iconSpaceReserved="false"
+            android:defaultValue="@string/default_collector_port"
+             />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/traffic_inspection" android:iconSpaceReserved="false"  android:key="traffic_inspection">
+        <SwitchPreference
+            android:key="auto_block_private_dns"
+            android:title="@string/block_private_dns"
+            android:summary="@string/block_private_dns_summary"
+            android:iconSpaceReserved="false"
+            android:defaultValue="true" />
+
+        <Preference
+            android:key="geolocation"
+            android:title="@string/geolocation"
+            android:summary="@string/geolocation_summary"
+            android:iconSpaceReserved="false"
+            android:fragment="com.emanuelef.remote_capture.fragments.GeoipSettings" />
+
+        <SwitchPreference
+            android:key="tls_decryption"
+            android:title="@string/tls_decryption"
+            android:iconSpaceReserved="false"
+            android:summary="@string/tls_decryption_summary"
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="mitm_setup_wizard"
+            android:title="@string/mitm_setup_wizard"
+            android:summary="@string/mitm_wizard_description"
+            android:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="mitmproxy_opts"
+            android:title="@string/mitmproxy_opts"
+            android:summary="@string/mitmproxy_opts_description"
+            android:iconSpaceReserved="false"
+             />
+
+        <ListPreference
+            android:key="block_quic_mode"
+            android:title="@string/block_quick"
+            android:entries="@array/block_quic_labels"
+            android:entryValues="@array/block_quic"
+            android:iconSpaceReserved="false"
+            android:defaultValue="never"
+             />
+
+        <!--SwitchPreference
+            android:key="full_payload"
+            android:title="@string/full_payload"
+            android:iconSpaceReserved="false"
+            android:summary="@string/full_payload_summary"
+            android:defaultValue="false" /-->
+
+        <Preference
+            android:key="socks5_settings"
+            android:title="@string/socks5_proxy"
+            android:summary="@string/socks5_summary"
+            android:iconSpaceReserved="false"
+            android:fragment="com.emanuelef.remote_capture.fragments.prefs.Socks5Settings" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/capture_prefs" android:iconSpaceReserved="false" >
+        <!--SwitchPreference
+            android:key="root_capture"
+            android:title="@string/root_capture"
+            android:iconSpaceReserved="false"
+            android:summary="@string/root_capture_summary"
+            android:defaultValue="false" /-->
+
+        <!--ListPreference
+            android:key="capture_interface"
+            android:title="@string/capture_interface"
+            android:iconSpaceReserved="false"
+            
+            android:defaultValue="\@inet" /-->
+
+        <Preference
+            android:key="vpn_exceptions"
+            android:title="@string/vpn_exemptions"
+            android:summary="@string/vpn_exemptions_summary"
+            android:iconSpaceReserved="false" />
+
+        <SwitchPreference
+            android:key="pcapng_format"
+            android:title="@string/pcapng_format"
+            android:iconSpaceReserved="false"
+            android:summary="@string/pcapng_format_summary"
+            android:defaultValue="true" />
+
+        <SwitchPreference
+            android:key="dump_extensions"
+            android:title="@string/dump_extensions"
+            android:iconSpaceReserved="false"
+            android:summary="@string/dump_extensions_summary"
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="dump_extensions_how_to"
+            android:title="@string/dump_extensions_how_to"
+            android:iconSpaceReserved="false">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions" />
+        </Preference>
+
+        <Preference
+            android:key="dns_settings"
+            android:title="@string/dns_servers"
+            android:summary="@string/dns_servers_summary"
+            android:iconSpaceReserved="false"
+            android:fragment="com.emanuelef.remote_capture.fragments.prefs.DnsSettings" />
+
+        <SwitchPreference
+            android:key="start_at_boot"
+            android:title="@string/start_at_boot"
+            android:iconSpaceReserved="false"
+            android:summary="@string/start_at_boot_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="restart_on_disconnect"
+            android:title="@string/restart_on_disconnection"
+            android:iconSpaceReserved="false"
+            android:summary="@string/restart_on_disconnection_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/security" android:iconSpaceReserved="false" android:key="security">
+        <SwitchPreference
+            android:key="malware_detection"
+            android:title="@string/malware_detection"
+            android:iconSpaceReserved="false"
+            android:summary="@string/malware_detection_summary"
+            android:defaultValue="true" />
+
+        <!--Preference
+            android:key="malware_detection_docs"
+            android:title="@string/malware_detection_learn_more"
+            android:iconSpaceReserved="false">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://emanuele-f.github.io/PCAPdroid/paid_features#51-malware-detection" />
+        </Preference-->
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/other_prefs" android:iconSpaceReserved="false" >
+        <ListPreference
+            android:key="app_language"
+            android:title="@string/app_language"
+            android:entries="@array/app_languages_labels"
+            android:entryValues="@array/app_languages"
+            android:iconSpaceReserved="false"
+            android:defaultValue="system"
+            />
+
+        <Preference
+            android:key="app_language_external"
+            android:title="@string/app_language"
+            
+            android:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="port_mapping"
+            android:title="@string/port_mapping"
+            android:summary="@string/port_mapping_summary"
+            android:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="ip_mode"
+            android:title="@string/ip_mode"
+            android:entries="@array/ip_mode_labels"
+            android:entryValues="@array/ip_mode"
+            android:iconSpaceReserved="false"
+            android:defaultValue="ipv4"
+             />
+
+        <Preference
+            android:key="control_permissions"
+            android:title="@string/control_permissions"
+            android:iconSpaceReserved="false"
+            android:summary="@string/control_permissions_summary" />
+    </PreferenceCategory>
+</PreferenceScreen>

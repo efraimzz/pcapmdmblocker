@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <ScrollView
+        android:id="@+id/outputScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    <EditText
+        android:id="@+id/edtxip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="הכנס ip"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:gravity="top"
+        android:scrollbars="vertical" />
+    <EditText
+        android:id="@+id/edtxport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="הכנס פורט"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:gravity="top"
+        android:scrollbars="vertical" />
+    <EditText
+        android:id="@+id/edtxpwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="הכנס קוד התאמה"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:gravity="top"
+        android:scrollbars="vertical" />
+    <EditText
+        android:id="@+id/commandEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="הכנס פקודה כאן"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:gravity="top"
+        android:scrollbars="vertical" />
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/activity_adb_pairlinl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button
+            android:id="@+id/bupair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="חיבור+קוד"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/bucon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="חיבור"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/buconmult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="חיבור למולטימדיה"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/budisacccon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="השבתת חשבונות עם חיבור adb"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/buenacccon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הפעלת חשבונות עם חיבור adb"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/budisaccmult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="השבתת חשבונות עם adb למולטימדיה"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/buenaccmult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הפעלת חשבונות עם adb למולטימדיה"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/budisacc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="השבתת חשבונות עם רוט"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/buenacc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הפעלת חשבונות עם רוט"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/buexecall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הרץ הכל"
+            style="@style/MDMActionButton"
+            android:background="@drawable/green_button_background"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+    </HorizontalScrollView>
+    
+    <ScrollView
+        android:id="@+id/outputScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/outputTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:textIsSelectable="true"
+            android:text="פלט הפקודה יופיע כאן...\n" />
+
+    </ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

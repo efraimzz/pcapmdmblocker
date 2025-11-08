@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/act_stat_tvappname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pcapdroid_app_name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+            <ImageView
+                android:src="@drawable/ic_launcher"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/act_stat_tvstate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="state"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+            <TextView
+                android:id="@+id/act_stat_tvtinst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="time install"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+            <TextView
+                android:id="@+id/act_stat_tvtlogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="time login"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(צריך להשבית שינוי תאריך ושעה!)"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDDDDD"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"/>
+            <LinearLayout
+                android:id="@+id/act_stat_linlactivate"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
+                <Button
+                    android:id="@+id/act_stat_bucpcmd"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="@string/bucpcmd"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"/>
+                <Button
+                    android:id="@+id/act_stat_bucert"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="התקנת מודל תעודת אבטחה לנטפרי!"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"/>
+                <Button
+                    android:id="@+id/act_stat_budev"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="@string/budev"/>
+                <Button
+                    android:id="@+id/act_stat_buaccount"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="@string/buaccount"/>
+                <Button
+                    android:id="@+id/act_stat_bucppwd"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="@string/bucppwd"/>
+                <Button
+                    android:id="@+id/act_stat_buadbwifi"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="@string/buadbwifi"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"/>
+                <Button
+                    android:id="@+id/act_stat_buqrmdm"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="@string/buqrmdm"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"/>
+                <TextView
+                    android:id="@+id/act_stat_tvstartbarcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="הפעלה עם ברקוד"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+                <ImageView
+                    android:id="@+id/act_stat_ivbarcode"
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"/>
+                <Button
+                    android:id="@+id/act_stat_busavebarcode"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="שמור ברקוד"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"/>
+                <Button
+                    android:id="@+id/act_stat_bustartroot"
+                    android:layout_width="wrap_content"
+                    style="@style/MDMActionButton"
+                    android:background="@drawable/green_button_background"
+                    android:text="הפעלה עם רוט"/>
+
+                <TextView
+                    android:id="@+id/act_stat_tvremove_root"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvremove_root"
+                    android:gravity="center"
+                    android:textColor="#FFFF0000"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/act_stat_linldetails"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:id="@+id/act_stat_tvroute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="route"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:id="@+id/act_stat_tvdescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="description"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(במולטימדיה ובמכשירים לא רשמיים צריך להשבית שינוי הגדרות vpn!)"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

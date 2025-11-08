@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="5dp">
+
+    <TextView
+        android:id="@+id/label"
+        
+        android:ellipsize="end"
+        android:singleLine="true"
+      
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:drawablePadding="5dp"
+        tools:text="Blacklist Name" />
+
+    <TextView
+        android:id="@+id/status"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Up to date"
+        tools:textColor="@color/ok" />
+
+    <TextView
+        android:id="@+id/type"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        tools:text="Type: IP blacklist" />
+
+    <TextView
+        android:id="@+id/rules"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        tools:text="150k rules" />
+
+    <TextView
+        android:id="@+id/last_update"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        tools:text="Last update: 12:02:11" />
+</LinearLayout>
