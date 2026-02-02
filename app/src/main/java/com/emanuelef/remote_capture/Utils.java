@@ -434,7 +434,12 @@ public class Utils {
 
         if(props != null) {
             List<InetAddress> dns_servers = props.getDnsServers();
-
+            /*for(InetAddress addr : dns_servers) {
+                // Get the first IPv4 DNS server
+                if(addr instanceof Inet4Address) {
+                    LogUtil.logToFile("dnsaddr="+ addr.getHostAddress());
+                }
+            }*/
             for(InetAddress addr : dns_servers) {
                 // Get the first IPv4 DNS server
                 if(addr instanceof Inet4Address) {
@@ -445,7 +450,34 @@ public class Utils {
 
         return null;
     }
+    public static String getPhysicalNetworkDns(ConnectivityManager cm) {
+        // עוברים על כל הרשתות שהמערכת מזהה
+        Network[] networks = cm.getAllNetworks();
 
+        for (Network net : networks) {
+            NetworkCapabilities caps = cm.getNetworkCapabilities(net);
+
+            if (caps != null) {
+                // אנחנו מחפשים רשת שהיא Wi-Fi או סלולר, והיא לא VPN
+               // boolean isPhysical = caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || 
+                 //   caps.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
+                boolean isVpn = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+
+                if (!isVpn) {
+                    LinkProperties lp = cm.getLinkProperties(net);
+                    if (lp != null) {
+                        List<InetAddress> dnsServers = lp.getDnsServers();
+                        for (InetAddress addr : dnsServers) {
+                            if (addr instanceof Inet4Address) {
+                                return addr.getHostAddress(); // מצאנו את ה-DNS של הרשת האמיתית!
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
     // https://gist.github.com/mathieugerard/0de2b6f5852b6b0b37ed106cab41eba1
     // API level 31 requires building a NetworkRequest, which in turn requires an asynchronous callback.
     // Using the deprecated API instead to keep things simple.

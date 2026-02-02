@@ -48,6 +48,7 @@ public class transferOwner extends Activity {
                     }
                     ArrayList<String> dais=new ArrayList<>();
                     for(DeviceAdminInfo inf : dai){
+                        if(inf.supportsTransferOwnership())
                         dais.add("name="+inf.loadLabel(pm)+"\npkgname="+inf.getPackageName());
                     }
                     final Button bucomptext=findViewById(R.id.actranbucomptext);

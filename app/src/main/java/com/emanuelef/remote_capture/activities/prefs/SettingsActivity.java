@@ -36,19 +36,19 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.app.AlertDialog;
 /*
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.DropDownPreference;
-import androidx.preference.EditTextPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
-import androidx.preference.SwitchPreference;
-*/
+ import androidx.core.graphics.Insets;
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ import androidx.fragment.app.Fragment;
+ import androidx.fragment.app.FragmentManager;
+ import androidx.fragment.app.FragmentTransaction;
+ import androidx.preference.DropDownPreference;
+ import androidx.preference.EditTextPreference;
+ import androidx.preference.Preference;
+ import androidx.preference.PreferenceFragmentCompat;
+ import androidx.preference.PreferenceManager;
+ import androidx.preference.SwitchPreference;
+ */
 import com.emanuelef.remote_capture.Billing;
 import com.emanuelef.remote_capture.Log;
 import com.emanuelef.remote_capture.PCAPdroid;
@@ -85,130 +85,130 @@ import com.emanuelef.remote_capture.activities.MDMStatusActivity;
 
 public class SettingsActivity extends BaseActivity implements 
 FragmentManager.OnBackStackChangedListener,
-        
-        FragmentViewCreatedListener {
+
+FragmentViewCreatedListener {
     private static final String TAG = "SettingsActivity";
     private static final String ACTION_LANG_RESTART = "lang_restart";
     public static final String TARGET_PREF_EXTRA = "target_pref";
-   // private WindowInsetsCompat mInsets = null;
+    // private WindowInsetsCompat mInsets = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.title_activity_settings); // note: setting via manifest does not honor custom locale
         displayBackAction();
-        
+
         setContentView(R.layout.fragment_activity);
         getFragmentManager()
-        .beginTransaction()
-        .add(R.id.linfra,new SettingsFragment())
-        .commit();
+            .beginTransaction()
+            .add(R.id.linfra, new SettingsFragment())
+            .commit();
         getFragmentManager().addOnBackStackChangedListener(this);
-        
-/*
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment, new SettingsFragment(), "root")
-                .commit();
 
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
-        */
+        /*
+         getSupportFragmentManager()
+         .beginTransaction()
+         .replace(R.id.fragment, new SettingsFragment(), "root")
+         .commit();
+
+         getSupportFragmentManager().addOnBackStackChangedListener(this);
+         */
     }
 
-    
+
 
     @Override
     public void onFragmentViewCreated(View view) {
     }
 
-    
-/*
-    @Nullable
-    @Override
-    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        View view = super.onCreateView(parent, name, context, attrs);
-        /*if (view != null)
-            ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
-                mInsets = windowInsets;
-                return windowInsets;
-            });*/
-/*
-        return view;
-    }
 
-    @Override
-    public void onFragmentViewCreated(@NonNull View view) {
-        // necessary, otherwise insets are not dispatched after fragment replace
-       // if (mInsets != null)
-            //ViewCompat.dispatchApplyWindowInsets(view, mInsets);
-    }*/
-/*
-    @Override
-    public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref) {
-        PreferenceFragmentCompat targetFragment = null;
-        String prefKey = pref.getKey();
+    /*
+     @Nullable
+     @Override
+     public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+     View view = super.onCreateView(parent, name, context, attrs);
+     /*if (view != null)
+     ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+     mInsets = windowInsets;
+     return windowInsets;
+     });*/
+    /*
+     return view;
+     }
 
-        Log.d(TAG, "startFragment: " + prefKey);
+     @Override
+     public void onFragmentViewCreated(@NonNull View view) {
+     // necessary, otherwise insets are not dispatched after fragment replace
+     // if (mInsets != null)
+     //ViewCompat.dispatchApplyWindowInsets(view, mInsets);
+     }*/
+    /*
+     @Override
+     public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref) {
+     PreferenceFragmentCompat targetFragment = null;
+     String prefKey = pref.getKey();
 
-        if(prefKey.equals("geolocation")) {
-            targetFragment = new GeoipSettings();
-            setTitle(R.string.geolocation);
-        } else if(prefKey.equals("dns_settings")) {
-            targetFragment = new DnsSettings();
-            setTitle(R.string.dns_servers);
-        } else if(prefKey.equals("socks5_settings")) {
-            targetFragment = new Socks5Settings();
-            setTitle(R.string.socks5_proxy);
-        }
+     Log.d(TAG, "startFragment: " + prefKey);
 
-        if(targetFragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment, targetFragment, pref.getKey())
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack(pref.getKey())
-                    .commit();
-            return true;
-        }
+     if(prefKey.equals("geolocation")) {
+     targetFragment = new GeoipSettings();
+     setTitle(R.string.geolocation);
+     } else if(prefKey.equals("dns_settings")) {
+     targetFragment = new DnsSettings();
+     setTitle(R.string.dns_servers);
+     } else if(prefKey.equals("socks5_settings")) {
+     targetFragment = new Socks5Settings();
+     setTitle(R.string.socks5_proxy);
+     }
 
-        return false;
-    }
-*/
+     if(targetFragment != null) {
+     getSupportFragmentManager()
+     .beginTransaction()
+     .replace(R.id.fragment, targetFragment, pref.getKey())
+     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+     .addToBackStack(pref.getKey())
+     .commit();
+     return true;
+     }
+
+     return false;
+     }
+     */
     @Override
     public void onBackStackChanged() {
-       // Fragment f = getFragmentManager().findFragmentById(R.id.fragment);
-       /* if(f instanceof SettingsFragment) {
-            setTitle(R.string.title_activity_settings);
-/*
-            var view = f.getView();
-            if ((mInsets != null) && (view != null))
-                ViewCompat.dispatchApplyWindowInsets(view, mInsets);
-                */
-      //  }
+        // Fragment f = getFragmentManager().findFragmentById(R.id.fragment);
+        /* if(f instanceof SettingsFragment) {
+         setTitle(R.string.title_activity_settings);
+         /*
+         var view = f.getView();
+         if ((mInsets != null) && (view != null))
+         ViewCompat.dispatchApplyWindowInsets(view, mInsets);
+         */
+        //  }
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public void onBackPressed() {
         /*Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment);
-        if(f instanceof SettingsFragment) {
-            Intent intent = getIntent();
+         if(f instanceof SettingsFragment) {
+         Intent intent = getIntent();
 
-            if ((intent != null) && SettingsActivity.ACTION_LANG_RESTART.equals(intent.getAction())) {
-                // Use a custom intent to provide "up" navigation after ACTION_LANG_RESTART took place
-                intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-                return;
-            }
-        }*/
+         if ((intent != null) && SettingsActivity.ACTION_LANG_RESTART.equals(intent.getAction())) {
+         // Use a custom intent to provide "up" navigation after ACTION_LANG_RESTART took place
+         intent = new Intent(this, MainActivity.class);
+         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+         startActivity(intent);
+         finish();
+         return;
+         }
+         }*/
 
         // default behavior
         super.onBackPressed();
     }
 
-    public static class SettingsFragment extends PreferenceFragment{
+    public static class SettingsFragment extends PreferenceFragment {
         private SwitchPreference mTlsDecryption;
         private SwitchPreference mFullPayloadEnabled;
         //private SwitchPreference mRootCaptureEnabled;
@@ -229,21 +229,24 @@ FragmentManager.OnBackStackChangedListener,
         private boolean mHasStartedMitmWizard;
         private boolean mRootDecryptionNoticeShown = false;
 
+        private SwitchPreference netfreea;
+        private SwitchPreference netfreeb;
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            
+
         }
-        
-        void refreshsumarray(Preference pref,String s){
-            if(pref instanceof EditTextPreference){
+
+        void refreshsumarray(Preference pref, String s) {
+            if (pref instanceof EditTextPreference) {
                 pref.setSummary(s);
-            } else if(pref instanceof ListPreference){
+            } else if (pref instanceof ListPreference) {
                 pref.setSummary(s);
             }
         }
-        void mlistpresum(Preference pref){
-            if(pref instanceof ListPreference){
+        void mlistpresum(Preference pref) {
+            if (pref instanceof ListPreference) {
                 pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
                         @Override
@@ -254,7 +257,7 @@ FragmentManager.OnBackStackChangedListener,
                     });
             }
         }
-       // @Override
+        // @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.root_preferences);
             mIab = Billing.newInstance(getContext());
@@ -269,35 +272,38 @@ FragmentManager.OnBackStackChangedListener,
             socks5ProxyHideShow(mTlsDecryption.isChecked(), rootCaptureEnabled());
             mBlockQuic.setEnabled(!rootCaptureEnabled());
             rootCaptureHideShow(rootCaptureEnabled());
-/*
-            Intent intent = requireActivity().getIntent();
-            if(intent != null) {
-                String target_pref = intent.getStringExtra(TARGET_PREF_EXTRA);
-                if(target_pref != null)
-                    scrollToPreference(target_pref);
-            }*/
+            
+            setupNetfreePrefs();
+            
+            /*
+             Intent intent = requireActivity().getIntent();
+             if(intent != null) {
+             String target_pref = intent.getStringExtra(TARGET_PREF_EXTRA);
+             if(target_pref != null)
+             scrollToPreference(target_pref);
+             }*/
         }
 
         @Override
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            onCreatePreferences(savedInstanceState,"");
-            
-/*
-            ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
-                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                        WindowInsetsCompat.Type.displayCutout());
-                v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+            onCreatePreferences(savedInstanceState, "");
 
-                return WindowInsetsCompat.CONSUMED;
-            });*/
+            /*
+             ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() |
+             WindowInsetsCompat.Type.displayCutout());
+             v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+
+             return WindowInsetsCompat.CONSUMED;
+             });*/
         }
 
         @Override
         public void onResume() {
             super.onResume();
 
-            if(mHasStartedMitmWizard && !MitmAddon.needsSetup(getContext())) {
+            if (mHasStartedMitmWizard && !MitmAddon.needsSetup(getContext())) {
                 Log.d(TAG, "mitm setup complete, enabling");
                 mTlsDecryption.setChecked(true);
                 //mFullPayloadEnabled.setChecked(true);
@@ -307,14 +313,44 @@ FragmentManager.OnBackStackChangedListener,
 
         private  <T extends Preference> T requirePreference(String key) {
             T pref = (T) findPreference(key);
-            if(pref == null)
+            if (pref == null)
                 throw new IllegalStateException();
-            if(pref instanceof EditTextPreference){
+            if (pref instanceof EditTextPreference) {
                 pref.setSummary(((EditTextPreference)pref).getText());
-            } else if(pref instanceof ListPreference){
+            } else if (pref instanceof ListPreference) {
                 pref.setSummary(((ListPreference)pref).getEntry());
             }
             return pref;
+        }
+        private void setupNetfreePrefs() {
+            netfreea = requirePreference(Prefs.PREF_NETFREE);
+            netfreeb = requirePreference(Prefs.PREF_NETFREEb);
+            netfreea.setEnabled(!netfreeb.isChecked());
+            netfreeb.setEnabled(!netfreea.isChecked());
+            netfreea.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+                    @Override
+                    public boolean onPreferenceChange(Preference p, Object newValue) {             
+                        boolean enabled = (boolean) newValue;
+                        Context ctx = getContext();
+                        //netfreea.setEnabled(!(boolean)newValue);
+                        netfreeb.setEnabled(!(boolean)newValue);
+                        if(enabled)
+                            netfreeb.setChecked(false);
+                        return true;
+                    }
+             });
+            netfreeb.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+                    @Override
+                    public boolean onPreferenceChange(Preference p, Object newValue) {             
+                        boolean enabled = (boolean) newValue;
+                        Context ctx = getContext();
+                        //netfreea.setEnabled(!(boolean)newValue);
+                        netfreea.setEnabled(!(boolean)newValue);
+                        if(enabled)
+                            netfreea.setChecked(false);
+                        return true;
+                    }
+                });
         }
         @SuppressWarnings("deprecation")
         private void setupExporterPrefs() {
@@ -324,40 +360,40 @@ FragmentManager.OnBackStackChangedListener,
 
                     @Override
                     public boolean onPreferenceChange(Preference p1, Object newValue) {
-                       
-            
-            Utils.validateIpAddress(newValue.toString());
-                        refreshsumarray(p1,newValue.toString());
-            return true;}});
+
+
+                        Utils.validateIpAddress(newValue.toString());
+                        refreshsumarray(p1, newValue.toString());
+                        return true;}});
             /* Collector port validation */
-         EditTextPreference mRemoteCollectorPort = requirePreference(Prefs.PREF_COLLECTOR_PORT_KEY);
-           // mRemoteCollectorPort.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED));
+            EditTextPreference mRemoteCollectorPort = requirePreference(Prefs.PREF_COLLECTOR_PORT_KEY);
+            // mRemoteCollectorPort.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED));
             mRemoteCollectorPort.setOnPreferenceChangeListener(new EditTextPreference.OnPreferenceChangeListener(){
 
                     @Override
                     public boolean onPreferenceChange(Preference p1, Object newValue) {
-                        
-                    
-                Utils.validatePort(newValue.toString());
-                        refreshsumarray(p1,newValue.toString());
-                return true;}});
+
+
+                        Utils.validatePort(newValue.toString());
+                        refreshsumarray(p1, newValue.toString());
+                        return true;}});
         }
 
         private void setupHttpServerPrefs() {
             /* HTTP Server port validation */
             EditTextPreference mHttpServerPort = requirePreference(Prefs.PREF_HTTP_SERVER_PORT);
-            
+
             mHttpServerPort.setOnPreferenceChangeListener(new EditTextPreference.OnPreferenceChangeListener(){
 
                     @Override
                     public boolean onPreferenceChange(Preference p1, Object newValue) {
-                     
-                    
-                Utils.validatePort(newValue.toString());
+
+
+                        Utils.validatePort(newValue.toString());
                         //p1.setSummary(newValue.toString());
-                refreshsumarray(p1,newValue.toString());
-                return true;
-                }});
+                        refreshsumarray(p1, newValue.toString());
+                        return true;
+                    }});
         }
 
         private boolean rootCaptureEnabled() {
@@ -383,7 +419,7 @@ FragmentManager.OnBackStackChangedListener,
 
                 while (ifaces.hasMoreElements()) {
                     NetworkInterface iface = ifaces.nextElement();
-                    if(!iface.isUp())
+                    if (!iface.isUp())
                         continue;
 
                     String name = iface.getName();
@@ -394,12 +430,12 @@ FragmentManager.OnBackStackChangedListener,
                 e.printStackTrace();
             }
 
-          //  mCapInterface.setEntryValues(values.toArray(new String[0]));
+            //  mCapInterface.setEntryValues(values.toArray(new String[0]));
             //mCapInterface.setEntries(labels.toArray(new String[0]));
         }
 
         private void setupCapturePrefs() {
-           // mCapInterface = requirePreference(Prefs.PREF_CAPTURE_INTERFACE);
+            // mCapInterface = requirePreference(Prefs.PREF_CAPTURE_INTERFACE);
             refreshInterfaces();
 
             //mRootCaptureEnabled = requirePreference(Prefs.PREF_ROOT_CAPTURE);
@@ -420,17 +456,17 @@ FragmentManager.OnBackStackChangedListener,
 
                     @Override
                     public boolean onPreferenceClick(Preference p1) {
-                       
-                Intent intent = new Intent(getContext(), VpnExemptionsActivity.class);
-                startActivity(intent);
-                return true;
-            }});
+
+                        Intent intent = new Intent(getContext(), VpnExemptionsActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }});
         }
 
         private void setupSecurityPrefs() {
             mMalwareDetectionEnabled = requirePreference(Prefs.PREF_MALWARE_DETECTION);
 
-            if(!mIab.isAvailable(Billing.MALWARE_DETECTION_SKU)) {
+            if (!mIab.isAvailable(Billing.MALWARE_DETECTION_SKU)) {
                 getPreferenceScreen().removePreference(requirePreference("security"));
                 return;
             }
@@ -444,44 +480,42 @@ FragmentManager.OnBackStackChangedListener,
 
             mTlsDecryption = requirePreference(Prefs.PREF_TLS_DECRYPTION_KEY);
             mTlsDecryption.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
-
                     @Override
-                    public boolean onPreferenceChange(Preference p, Object newValue) {
-                      
-                boolean enabled = (boolean) newValue;
-                Context ctx = getContext();
+                    public boolean onPreferenceChange(Preference p, Object newValue) {             
+                        boolean enabled = (boolean) newValue;
+                        Context ctx = getContext();
 
-                if(!checkDecrpytionWithRoot(rootCaptureEnabled(), (boolean) newValue))
-                    return false;
+                        if (!checkDecrpytionWithRoot(rootCaptureEnabled(), (boolean) newValue))
+                            return false;
 
-                /*if(enabled && MitmAddon.needsSetup(ctx)) {
-                    mHasStartedMitmWizard = true;
-                    Intent intent = new Intent(ctx, MitmSetupWizard.class);
-                    //startActivity(intent);
-                    return false;
-                }*/
+                        /*if(enabled && MitmAddon.needsSetup(ctx)) {
+                         mHasStartedMitmWizard = true;
+                         Intent intent = new Intent(ctx, MitmSetupWizard.class);
+                         //startActivity(intent);
+                         return false;
+                         }*/
                         MitmAddon.setDecryptionSetupDone(getContext(), true);
-                        
+
                         mMitmWizard.setEnabled((boolean) newValue);
                         mMitmproxyOpts.setEnabled((boolean) newValue);
-                socks5ProxyHideShow((boolean) newValue, rootCaptureEnabled());
-                return true;
-            }});
+                        socks5ProxyHideShow((boolean) newValue, rootCaptureEnabled());
+                        return true;
+                    }});
 
             mPcapngEnabled = requirePreference("pcapng_format");
 
-            if(mIab.isAvailable(Billing.PCAPNG_SKU)) {
+            if (mIab.isAvailable(Billing.PCAPNG_SKU)) {
                 mPcapngEnabled.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                         @Override
                         public boolean onPreferenceClick(Preference p1) {
-                          
-                        
-                    // Billing code here
 
-                    return false;
-                }});
-                if(!mIab.isPurchased(Billing.PCAPNG_SKU))
+
+                            // Billing code here
+
+                            return false;
+                        }});
+                if (!mIab.isPurchased(Billing.PCAPNG_SKU))
                     mPcapngEnabled.setChecked(false);
             } else
                 mPcapngEnabled.setEnabled(false);
@@ -496,10 +530,10 @@ FragmentManager.OnBackStackChangedListener,
 
                     @Override
                     public boolean onPreferenceClick(Preference p1) {
-                        
-                mHasStartedMitmWizard = true;
-                //Intent intent = new Intent(getContext(), MitmSetupWizard.class);
-                //startActivity(intent);
+
+                        mHasStartedMitmWizard = true;
+                        //Intent intent = new Intent(getContext(), MitmSetupWizard.class);
+                        //startActivity(intent);
                         //  if(MitmAddon.needsSetup(mcon)){
                         Intent intent = new Intent(getContext(), instcer.class);
                         startActivity(intent);
@@ -509,13 +543,13 @@ FragmentManager.OnBackStackChangedListener,
                         //MitmAddon.setDecryptionSetupDone(getContext(), true);
 
                         //  }
-                return true;
-            }});
+                        return true;
+                    }});
 
             mSocks5Settings = requirePreference("socks5_settings");
-            
+
             mlistpresum(mBlockQuic);
-            
+
         }
 
         private void socks5ProxyHideShow(boolean tlsDecryption, boolean rootEnabled) {
@@ -526,96 +560,96 @@ FragmentManager.OnBackStackChangedListener,
             ListPreference appLang = requirePreference(Prefs.PREF_APP_LANGUAGE);
             //Preference appLangExternal = requirePreference("app_language_external");
             boolean u=false;
-            if (Build.VERSION.SDK_INT >= 33&&u) {
+            if (Build.VERSION.SDK_INT >= 33 && u) {
                 // On Android 33+, app language is configurable from the system settings
-              /*  appLang.setEnabled(false);
-                appLangExternal.setEnabled(true);
-              /*  ClassLoader l=null;
-                try {
-                    l.getClass().getMethod("", Class.forName("")).invoke("", "");
-                } catch (SecurityException e) {} catch (NoSuchMethodException e) {} catch (IllegalArgumentException e) {} catch (IllegalAccessException e) {} catch (InvocationTargetException e) {} catch (ClassNotFoundException e) {}
-                */
-               /* LocaleList locales = ((LocaleList)getContext().getSystemService("locale"))
-                        .getApplicationLocales();*/
-            /*    LocaleList locales =LocaleList.getDefault();
-                if (locales.equals(LocaleList.getEmptyLocaleList()))
-                    appLangExternal.setSummary(getString(R.string.system_default));
-                else if (!locales.isEmpty())
-                    appLangExternal.setSummary(locales.get(0).getDisplayName());
+                /*  appLang.setEnabled(false);
+                 appLangExternal.setEnabled(true);
+                 /*  ClassLoader l=null;
+                 try {
+                 l.getClass().getMethod("", Class.forName("")).invoke("", "");
+                 } catch (SecurityException e) {} catch (NoSuchMethodException e) {} catch (IllegalArgumentException e) {} catch (IllegalAccessException e) {} catch (InvocationTargetException e) {} catch (ClassNotFoundException e) {}
+                 */
+                /* LocaleList locales = ((LocaleList)getContext().getSystemService("locale"))
+                 .getApplicationLocales();*/
+                /*    LocaleList locales =LocaleList.getDefault();
+                 if (locales.equals(LocaleList.getEmptyLocaleList()))
+                 appLangExternal.setSummary(getString(R.string.system_default));
+                 else if (!locales.isEmpty())
+                 appLangExternal.setSummary(locales.get(0).getDisplayName());
 
-                appLangExternal.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                 appLangExternal.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
-                        @Override
-                        public boolean onPreferenceClick(Preference p1) {
-                          
-                    Intent intent = new Intent("android.settings.APP_LOCALE_SETTINGS");
-                    intent.setData(Uri.fromParts("package", getContext().getPackageName(), null));
-                    startActivity(intent);
-                    return true;
-                }});*/
+                 @Override
+                 public boolean onPreferenceClick(Preference p1) {
+
+                 Intent intent = new Intent("android.settings.APP_LOCALE_SETTINGS");
+                 intent.setData(Uri.fromParts("package", getContext().getPackageName(), null));
+                 startActivity(intent);
+                 return true;
+                 }});*/
             } else {
-                
+
                 //appLangExternal.setEnabled(false);
                 // Fallback selector for older Android versions
-               /* if (SettingsActivity.ACTION_LANG_RESTART.equals(requireActivity().getIntent().getAction()))
-                    scrollToPreference(appLang);
-*/
+                /* if (SettingsActivity.ACTION_LANG_RESTART.equals(requireActivity().getIntent().getAction()))
+                 scrollToPreference(appLang);
+                 */
                 // Current locale applied via BaseActivity.attachBaseContext
                 appLang.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
                         @Override
                         public boolean onPreferenceChange(Preference p1, Object newValue) {
-                       
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-                    if (prefs.edit().putString(Prefs.PREF_APP_LANGUAGE, newValue.toString()).commit()) {
-                        // Restart the activity to apply the language change
-                        Intent intent = new Intent(getContext(), SettingsActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.setAction(SettingsActivity.ACTION_LANG_RESTART);
-                        startActivity(intent);
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-                        Runtime.getRuntime().exit(0);
-                    }
+                            if (prefs.edit().putString(Prefs.PREF_APP_LANGUAGE, newValue.toString()).commit()) {
+                                // Restart the activity to apply the language change
+                                Intent intent = new Intent(getContext(), SettingsActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.setAction(SettingsActivity.ACTION_LANG_RESTART);
+                                startActivity(intent);
 
-                    return false;
-                }});
+                                Runtime.getRuntime().exit(0);
+                            }
+
+                            return false;
+                        }});
             }
         }
 
         private void setupOtherPrefs() {
             setupAppLanguagePref();
 
-           /* mPortMapping = requirePreference(Prefs.PREF_PORT_MAPPING);
-            mPortMapping.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+            /* mPortMapping = requirePreference(Prefs.PREF_PORT_MAPPING);
+             mPortMapping.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
-                    @Override
-                    public boolean onPreferenceClick(Preference p1) {
-                       
-                Intent intent = new Intent(getContext(), PortMapActivity.class);
-                startActivity(intent);
-                return true;
-            }});*/
+             @Override
+             public boolean onPreferenceClick(Preference p1) {
+
+             Intent intent = new Intent(getContext(), PortMapActivity.class);
+             startActivity(intent);
+             return true;
+             }});*/
 
             mIpMode = requirePreference(Prefs.PREF_IP_MODE);
             mlistpresum(mIpMode);
             /*Preference ctrlPerm = requirePreference("control_permissions");
-            if(!PCAPdroid.getInstance().getCtrlPermissions().hasRules())
-                ctrlPerm.setEnabled(false);
-            else
-                ctrlPerm.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+             if(!PCAPdroid.getInstance().getCtrlPermissions().hasRules())
+             ctrlPerm.setEnabled(false);
+             else
+             ctrlPerm.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
-                        @Override
-                        public boolean onPreferenceClick(Preference p1) {
-                         
-                    Intent intent = new Intent(getContext(), EditCtrlPermissions.class);
-                    startActivity(intent);
-                    return true;
-                }});*/
+             @Override
+             public boolean onPreferenceClick(Preference p1) {
+
+             Intent intent = new Intent(getContext(), EditCtrlPermissions.class);
+             startActivity(intent);
+             return true;
+             }});*/
         }
 
         private void rootCaptureHideShow(boolean enabled) {
-            if(enabled) {
+            if (enabled) {
                 mAutoBlockPrivateDNS.setEnabled(false);
                 mBlockQuic.setEnabled(false);
                 mSocks5Settings.setEnabled(false);
@@ -633,26 +667,26 @@ FragmentManager.OnBackStackChangedListener,
             mVpnExceptions.setEnabled(!enabled);
             //mDnsSettings.setEnabled(!enabled);
             //mPortMapping.setEnabled(!enabled);
-            
+
         }
 
         private boolean checkDecrpytionWithRoot(boolean rootEnabled, boolean tlsDecryption) {
-            if(mRootDecryptionNoticeShown || !rootEnabled || !tlsDecryption)
+            if (mRootDecryptionNoticeShown || !rootEnabled || !tlsDecryption)
                 return true;
 
             new AlertDialog.Builder(getContext())
-                    .setMessage(R.string.tls_decryption_with_root_msg)
+                .setMessage(R.string.tls_decryption_with_root_msg)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface p1, int p2) {
-            
+
                         //mRootCaptureEnabled.setChecked(true);
                         mTlsDecryption.setChecked(true);
 
                         mRootDecryptionNoticeShown = true;
                     }})
-                    .show();
+                .show();
 
             return false;
         }

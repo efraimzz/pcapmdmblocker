@@ -151,6 +151,7 @@
             android:name="com.emanuelef.remote_capture.activities.hom"
             android:theme="@style/AppTheme.SplashScreen"
             android:launchMode="singleTop"
+            android:enabled="false"
             android:exported="true">
 
             <!--intent-filter>

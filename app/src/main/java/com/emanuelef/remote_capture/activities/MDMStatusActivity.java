@@ -298,59 +298,7 @@ public class MDMStatusActivity extends Activity {
         bucert.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View p1) {
-                    try {
-                        new Thread(){public void run() {
-                                try {
-                                    List<File> extractedApks = new ArrayList<File>();
-                                    byte[] buffer = new byte[1024];
-                                    ZipInputStream zis = null;
-                                    try {
-                                        zis = new ZipInputStream(getAssets().open("canetfree.zip"));
-                                        ZipEntry zipEntry;
-                                        while ((zipEntry = zis.getNextEntry()) != null) {
-                                            String fileName = zipEntry.getName();
-                                            File newFile = new File(getFilesDir() + "/", fileName);
-                                            FileOutputStream fos = null;
-                                            try {
-                                                if (zipEntry.isDirectory()) {
-                                                    newFile.mkdirs();
-                                                } else {
-                                                    fos = new FileOutputStream(newFile);
-                                                    int len;
-                                                    while ((len = zis.read(buffer)) > 0) {
-                                                        fos.write(buffer, 0, len);
-                                                    }
-                                                }
-                                                extractedApks.add(new File(fileName));
-                                                mcp(newFile.toString(), "/data/adb/modules/canetfree/" + new File(fileName), newFile.isDirectory());
-                                                mchmod("/data/adb/modules/canetfree/" + new File(fileName));
-                                            } catch (Exception e) {
-                                            } finally {
-                                                if (fos != null) fos.close();
-                                            }
-                                            zis.closeEntry();
-                                        }
-                                    } finally {
-                                        if (zis != null) zis.close();
-                                    }
-                                    /*String a="";
-                                    for (File aa:extractedApks) {
-                                        a += aa.getPath() + " " + (aa.isDirectory() ?"d": "f") + "\n";
-                                    }
-                                    String saveFile="/storage/emulated/0/a.txt";
-                                    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile), "UTF_8"));//encoding="UTF_8"
-                                    out.write(a);
-                                    out.close();*/
-                                    getMainExecutor().execute(new Runnable(){
-                                            @Override
-                                            public void run() {
-                                                Toast.makeText(getApplicationContext(),"הצליח",1).show();
-                                            }
-                                        });
-                                } catch (Exception e) {
-                                }
-                            }}.start();
-                    } catch (Exception e) {}
+                    copymodule(MDMStatusActivity.this);
                 }
             });
         try {
@@ -403,6 +351,61 @@ public class MDMStatusActivity extends Activity {
             });
         refresh();
         
+    }
+    public static void copymodule(final Context mcontext){
+        try {
+            new Thread(){public void run() {
+                    try {
+                        List<File> extractedApks = new ArrayList<File>();
+                        byte[] buffer = new byte[1024];
+                        ZipInputStream zis = null;
+                        try {
+                            zis = new ZipInputStream(mcontext.getAssets().open("canetfree.zip"));
+                            ZipEntry zipEntry;
+                            while ((zipEntry = zis.getNextEntry()) != null) {
+                                String fileName = zipEntry.getName();
+                                File newFile = new File(mcontext.getFilesDir() + "/", fileName);
+                                FileOutputStream fos = null;
+                                try {
+                                    if (zipEntry.isDirectory()) {
+                                        newFile.mkdirs();
+                                    } else {
+                                        fos = new FileOutputStream(newFile);
+                                        int len;
+                                        while ((len = zis.read(buffer)) > 0) {
+                                            fos.write(buffer, 0, len);
+                                        }
+                                    }
+                                    extractedApks.add(new File(fileName));
+                                    mcp(mcontext,newFile.toString(), "/data/adb/modules/canetfree/" + new File(fileName), newFile.isDirectory());
+                                    mchmod(mcontext,"/data/adb/modules/canetfree/" + new File(fileName));
+                                } catch (Exception e) {
+                                } finally {
+                                    if (fos != null) fos.close();
+                                }
+                                zis.closeEntry();
+                            }
+                        } finally {
+                            if (zis != null) zis.close();
+                        }
+                        /*String a="";
+                         for (File aa:extractedApks) {
+                         a += aa.getPath() + " " + (aa.isDirectory() ?"d": "f") + "\n";
+                         }
+                         String saveFile="/storage/emulated/0/a.txt";
+                         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile), "UTF_8"));//encoding="UTF_8"
+                         out.write(a);
+                         out.close();*/
+                        mcontext.getMainExecutor().execute(new Runnable(){
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mcontext.getApplicationContext(),"הצליח",1).show();
+                                }
+                            });
+                    } catch (Exception e) {
+                    }
+                }}.start();
+        } catch (Exception e) {}
     }
 
     @Override
@@ -629,8 +632,11 @@ public class MDMStatusActivity extends Activity {
 
                             );
             String[] listidentmult={"Fanvace M36",
+                "MECHEN X56",
                 "s9863a1h10",
                 "uis7865_6h10_go",
+                "ums512_1h10",
+                "UIS8581A",
                 ""};
             boolean found= false;
             String curdevice=Build.DEVICE;
@@ -1104,11 +1110,11 @@ public class MDMStatusActivity extends Activity {
             //finish();
         }
     }
-    String mount="mount -o rw,remount /vendor\nmount -o rw,remount /\nmount -o rw,remount /product\n";
-    void mcp(String mfile, String mfiledestination, boolean isdir) {
+    static String mount="mount -o rw,remount /vendor\nmount -o rw,remount /\nmount -o rw,remount /product\n";
+    static void mcp(Context mcontext,String mfile, String mfiledestination, boolean isdir) {
         try {
             //String mfile="a";
-            String mfilefrom=getFilesDir() + "/" + mfile;
+            String mfilefrom=mcontext.getFilesDir() + "/" + mfile;
             mfilefrom = mfile;
 
             //String mfiledestination="/system/system_ext/priv-app/Settings/a";
@@ -1163,13 +1169,13 @@ public class MDMStatusActivity extends Activity {
                 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile), "UTF_8"));//encoding="UTF_8"
                 out.write(c);
                 out.close();*/
-                Toast.makeText(getApplicationContext(), "" + c, Toast.LENGTH_LONG).show();
+                Toast.makeText(mcontext.getApplicationContext(), "" + c, Toast.LENGTH_LONG).show();
             } catch (InterruptedException e) {}
         } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext.getApplicationContext(), "" + e, Toast.LENGTH_LONG).show();
         }
     }
-    void mchmod(String mfiledestination) {
+    static void mchmod(Context mcontext,String mfiledestination) {
         try {
             Process pr= Runtime.getRuntime().exec("su");
             DataOutputStream dos=new DataOutputStream(pr.getOutputStream());
@@ -1181,7 +1187,7 @@ public class MDMStatusActivity extends Activity {
                 pr.waitFor();
             } catch (InterruptedException e) {}
         } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(mcontext.getApplicationContext(), "" + e, Toast.LENGTH_LONG).show();
         }
     }
 }

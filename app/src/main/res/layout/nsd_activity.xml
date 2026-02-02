@@ -37,12 +37,7 @@
                 style="@style/MDMActionButton"
                 android:background="@drawable/rounded_button_background"
 				android:text="עצור גילוי"/>
-			<Switch
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="הפעלת חסימת MDM"
-				android:checked="true"
-				android:id="@+id/swacti"/>
+			
 
 			<Switch
 				android:layout_width="match_parent"
@@ -50,7 +45,21 @@
 				android:text="השבתת חשבונות"
 				android:checked="true"
 				android:id="@+id/swdisacc"/>
-
+            
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="הפעלת חסימת MDM"
+                android:checked="true"
+				android:id="@+id/swacti"/>
+            
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="שינוי הגדרות אבטחה לצורך נגישות"
+                android:checked="true"
+				android:id="@+id/swsec"/>
+            
 			<Switch
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"

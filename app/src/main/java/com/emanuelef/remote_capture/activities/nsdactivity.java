@@ -25,7 +25,7 @@ public class nsdactivity extends Activity implements AdbNsdResolver.AdbServiceFo
     private AdbNsdResolver mAdbResolver;
     private TextView mStatusText,pairst,connst,resst,discost,logst,mrlog;
     private Button mDiscoveryButton,mconDiscoveryButton,mstopDiscobu;
-    Switch swacti,swdisacc,swenacc;
+    Switch swacti,swsec,swdisacc,swenacc;
     private String storedconnect;
     String todo="";
     public static boolean ready=true;
@@ -59,6 +59,7 @@ public class nsdactivity extends Activity implements AdbNsdResolver.AdbServiceFo
         mconDiscoveryButton=findViewById(R.id.start_conn_discovery_button);
         mstopDiscobu=findViewById(R.id.stop_discoverys);
         swacti=findViewById(R.id.swacti);
+        swsec=findViewById(R.id.swsec);
         swdisacc=findViewById(R.id.swdisacc);
         swenacc=findViewById(R.id.swenacc);
         mAdbResolver = new AdbNsdResolver(this, this);
@@ -224,7 +225,9 @@ public class nsdactivity extends Activity implements AdbNsdResolver.AdbServiceFo
                                 if(res.contains("e")){
                                     txtres+="הפעלת חשבונות ";
                                 }
-                                
+                                if(res.contains("s")){
+                                    txtres+="אישור נגישות ";
+                                }
                                 mStatusText.setText("הצליח");
                                 resst.setText(txtres);
                                 connst.setText("הצליח");
@@ -327,7 +330,7 @@ public class nsdactivity extends Activity implements AdbNsdResolver.AdbServiceFo
         private void mconnectrun(){
             if(!mAdbResolver.pairactive){
                 if(storedconnect!=null){
-                    todo=(swdisacc.isChecked()?"d":"")+(swenacc.isChecked()?"e":"")+(swacti.isChecked()?"a":"");
+                    todo=(swdisacc.isChecked()?"d":"")+(swenacc.isChecked()?"e":"")+(swacti.isChecked()?"a":"")+(swsec.isChecked()?"s":"");
                     if(!todo.equals("")){
                         if(ready){
                             connst.setText("מריץ");

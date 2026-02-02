@@ -64,7 +64,7 @@ public class instcer extends Activity implements MitmListener{
             Log.d(TAG, "null context");
             return;
         }
-
+        //LogUtil.logToFile(ca_pem);
         mCaPem = ca_pem;
 
         // NOTE: onMitmGetCaCertificateResult can be called by fallbackToCertExport

@@ -125,5 +125,23 @@ public class MoreFeaturesActivity extends Activity {
                     }
                 });
         }
+        Button btncrt = findViewById(R.id.btn_crt);
+        if (btncrt != null) {
+            btncrt.setOnClickListener(new View.OnClickListener() {
+                    @Deprecated
+                    @Override
+                    public void onClick(View v) {
+                        PasswordManager.requestPasswordAndSave(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try{
+                                        MDMStatusActivity.copymodule(MoreFeaturesActivity.this);
+                                    } catch (Exception e){}
+                                }
+                            },MoreFeaturesActivity.this);
+
+                    }
+                });
+        }
     }
 }

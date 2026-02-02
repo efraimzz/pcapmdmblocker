@@ -32,6 +32,11 @@ public class myadb {
                     connectIntent.putExtra("dpm_SUCCESS", true);
                     con.sendBroadcast(connectIntent);
                 }
+                if(line.toLowerCase().contains("unauthorized")){
+                    nsdactivity.logres+="\nשגיאה - עדיין אין אישור להרצת adb מהמכשיר\n";
+
+                    err="unauthorized";
+                }
                 /*runOnUiThread(new Runnable() {
                  @Override
                  public void run() {
@@ -57,6 +62,22 @@ public class myadb {
             public void onErrorReceived(final String line) {
                 LogUtil.logToFile("e: "+line);
                 nsdactivity.logres+=line+"\n";
+                
+                    if(line.toLowerCase().contains("account")){
+                        nsdactivity.logres+="\nשגיאת חשבונות\n";
+                        err="account";
+                    }else if(line.toLowerCase().contains("is already set")){
+                        nsdactivity.logres+="\nשגיאה - מכשיר כבר מוגדר\n";
+                        err="already";
+                    }else if(line.toLowerCase().contains("already several users")){
+                        nsdactivity.logres+="\nשגיאה - למכשיר יש משתמשים מרובים\n";
+                        err="users";
+                    }else if(line.toLowerCase().contains("java.lang.IllegalStateException")){
+                        nsdactivity.logres+="\nשגיאה - שגיאה לא מוכרת בינתיים\n";
+                        err="Illegal";
+                    }
+                    
+                
                 /*runOnUiThread(new Runnable() {
                  @Override
                  public void run() {
@@ -79,6 +100,22 @@ public class myadb {
                 LogUtil.logToFile("finish exit code-"+exitCode+"\n"+finalOutput);
                 nsdactivity.logres+="finish exit code-"+exitCode+"\n";
                 boolean end=false;
+                
+                if(err.equals("account")){
+                    nsdactivity.logres+="\nשגיאה - יש עדיין חשבונות במכשיר\n";
+
+                }else if(err.equals("already")){
+                    nsdactivity.logres+="\nשגיאה - מכשיר כבר מוגדר\n";
+
+                }else if(err.equals("users")){
+                    nsdactivity.logres+="\nשגיאה - למכשיר יש משתמשים מרובים\n";
+
+                }else if(err.equals("Illegal")){
+                    nsdactivity.logres+="\nשגיאה - שגיאה לא מוכרת בינתיים\n";
+
+                }else if(err.equals("unauthorized")){
+                    nsdactivity.logres+="\nשגיאה - עדיין אין אישור להרצת adb מהמכשיר\n";
+                }
                // if (exitCode == 0) {
                     
                     // הפעולה צריכה להתבצע על ה-UI thread של ה-MainActivity
@@ -117,6 +154,7 @@ public class myadb {
                         String disacc="";
                         String enacc="";
                         String acti="";
+                        String sec="";
                         String res="";
                         if(todo.contains("d")){
                             disacc="new state: disabled-user";
@@ -139,7 +177,13 @@ public class myadb {
                                 res+="a";
                             }
                         }
-                        
+                        if(todo.contains("s")){
+                            sec="granted=true";
+                            if(finalOutput.toLowerCase().contains(sec)){
+                                //sec suc
+                                res+="s";
+                            }
+                        }
                         
                         
                         
@@ -238,6 +282,7 @@ public class myadb {
             String disacc="";
             String enacc="";
             String acti="";
+            String sec="";
             if(todo.contains("d")){
                 disacc="\nlibadb.so -s "+ipPort+" shell \"cmd package query-services -a android.accounts.AccountAuthenticator | grep packageName | cut -d '=' -f 2 | tr -d '\\r' | sort -u | sed 's/^/pm disable-user --user -0 /' | sh\" < /dev/null\n";
             }
@@ -247,6 +292,12 @@ public class myadb {
             if(todo.contains("a")){
                 acti="\nlibadb.so -s "+ipPort+" shell dpm set-device-owner com.emanuelef.remote_capture.debug/com.emanuelef.remote_capture.activities.admin</dev/null\n";
             }
+            if(todo.contains("s")){
+                sec="\nlibadb.so -s "+ipPort+" shell pm grant "+con.getPackageName()+" android.permission.WRITE_SECURE_SETTINGS < /dev/null\n"+
+                "libadb.so -s "+ipPort+" shell \"dumpsys package "+con.getPackageName()+" | grep WRITE_SECURE_SETTINGS\" < /dev/null\n";
+                
+                //sec="\nlibadb.so -s "+ipPort+" shell dpm set-device-owner com.emanuelef.remote_capture.debug/com.emanuelef.remote_capture.activities.admin</dev/null\n";
+            }
             //if(pin.equals("false")){
              //   cmddpmnew="\nlibadb.so -s "+ipPort+" shell dpm set-device-owner com.emanuelef.remote_capture.debug/com.emanuelef.remote_capture.activities.admin</dev/null\nexit\nexit\n";
             //}else if(pin.equals("true")){
@@ -254,7 +305,7 @@ public class myadb {
                 
                 
                 //cmddpmnew="\nlibadb.so -s "+ipPort+" shell "+disacc+"libadb.so -s "+ipPort+" shell "+"dpm set-device-owner com.emanuelef.remote_capture.debug/com.emanuelef.remote_capture.activities.admin</dev/null\n"+"libadb.so -s "+ipPort+" shell "+enacc+"\nexit\nexit\n";
-                cmddpmnew=disacc+"sleep 3"+acti+enacc+"\nexit\nexit\n";
+                cmddpmnew=disacc+"sleep 3"+acti+enacc+sec+"\nexit\nexit\n";
             //}
             //String exc="/system/bin/sh -"+menv+adb+" kill-server\nlibadb.so disconnect\nlibadb.so connect "+edtxip.getText().toString()+":"+edtxport.getText().toString()+"\nlibadb.so disconnect\nlibadb.so connect "+edtxip.getText().toString()+":"+edtxport.getText().toString()+cmddpm;
             //cmddpmnew="\nlibadb.so -s "+ipPort+" shell dpm set-device-owner com.emanuelef.remote_capture.debug/com.emanuelef.remote_capture.activities.admin</dev/null\nexit\nexit\n";
@@ -276,9 +327,10 @@ public class myadb {
         void onErrorReceived(String line);
         void onCommandFinished(int exitCode, String finalOutput, String finalError);
     }
+    String err="";
     Process process = null;
     private void executeRootCommandInternal(final String command, final CommandOutputListener listener) {
-
+        err="";
         DataOutputStream os = null;
         final StringBuilder finalOutput = new StringBuilder();
         final StringBuilder finalErrorOutput = new StringBuilder();

@@ -273,6 +273,7 @@ public class CaptureService extends VpnService implements Runnable {
     static String lastup="";
     private class CheckNetfreeTask extends AsyncTask<Void, Void, Boolean> {
         // the crt checker -
+        /*
         @Override
         protected Boolean doInBackground(Void... voids) {
             boolean netfree = false; // ברירת מחדל
@@ -299,7 +300,7 @@ public class CaptureService extends VpnService implements Runnable {
                  fileOutputStream.write(buffer, 0,(int) bytesRead);
                  }
                  }*/
-                int responseCode = connection.getResponseCode();
+      /*          int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     netfree = true; // התוכן קיים
                 }
@@ -324,27 +325,94 @@ public class CaptureService extends VpnService implements Runnable {
                         }
                     }
                 }*/
-            } catch (IOException | Exception e) {
+     /*       } catch (IOException | Exception e) {
                 // במקרה של IOException, בדוק אם יש חיבור לאינטרנט
                 //LogUtil.logToFile(e.toString()+isInternetAvailablenew());
                 netfree = isInternetAvailablenew() ? false : netfree;
             }
             return netfree;
-        }
+        }*/
         // the api checker -
-        /*
+        
         @Override
         protected Boolean doInBackground(Void... voids) {
-            boolean netfree = false; // ברירת מחדל
+            
+            boolean netfree = false;
+            if(mPrefs.getBoolean(Prefs.PREF_NETFREEb,false)){
+                HttpURLConnection connection =null;
+                try {
+                    // the crt checker -
+                    //LogUtil.logToFile("s");
+                    URL url = new URL("http://netfree.link/netfree-ca.crt");
+                    connection = (HttpURLConnection) url.openConnection();
+                    //connection.setRequestMethod("GET");
+                    //connection.connect();
+                    //connection.setInstanceFollowRedirects(true);
+                    //LogUtil.logToFile("s3");
+                    //LogUtil.logToFile("c="+connection.getResponseCode()+connection.getResponseMessage()+connection.getDoInput()+(connection.getErrorStream()!=null));
+                    //  LogUtil.logToFile("i="+connection.getInputStream());
+
+                    // LogUtil.logToFile("res="+connection.getResponseCode()+connection.getDoInput()+(connection.getInputStream()!=null));
+                    /*FileOutputStream fileOutputStream = new FileOutputStream(new File("/storage/emulated/0/s.txt"));
+                     InputStream inputStream=connection.getErrorStream();
+                     if(inputStream!=null){
+                     byte[] buffer = new byte[4096];
+                     long bytesRead;
+                     while ((bytesRead = inputStream.read(buffer)) != -1) {
+                     fileOutputStream.write(buffer, 0,(int) bytesRead);
+                     }
+                     }*/
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        netfree = true; // התוכן קיים
+                        //LogUtil.logToFile("netfree=ok");
+                    }
+                    if(connection.getResponseCode()==connection.HTTP_MOVED_TEMP){
+                        if(connection.getHeaderField("Location").equals("https://netfree.link/go/install-cert-x2")){
+                            netfree = true;
+                            //LogUtil.logToFile("netfreeloc=netfree");
+                        }
+                    }
+                    /*if (responseCode == HttpURLConnection.HTTP_OK) {
+                     FileOutputStream fileOutputStream = new FileOutputStream(new File("/storage/emulated/0/s.txt"));
+                     InputStream inputStream=connection.getInputStream();
+                     if(inputStream!=null){
+                     byte[] buffer = new byte[4096];
+                     long bytesRead;
+                     while ((bytesRead = inputStream.read(buffer)) != -1) {
+                     fileOutputStream.write(buffer, 0,(int) bytesRead);
+                     }
+                     }
+                     }else{
+                     FileOutputStream fileOutputStream = new FileOutputStream(new File("/storage/emulated/0/s.txt"));
+                     InputStream inputStream=connection.getErrorStream();
+                     if(inputStream!=null){
+                     byte[] buffer = new byte[4096];
+                     long bytesRead;
+                     while ((bytesRead = inputStream.read(buffer)) != -1) {
+                     fileOutputStream.write(buffer, 0,(int) bytesRead);
+                     }
+                     }
+                     }*/
+                } catch (IOException | Exception e) {
+                    // במקרה של IOException, בדוק אם יש חיבור לאינטרנט
+                    //LogUtil.logToFile(e.toString()+isInternetAvailablenew());
+                    netfree = isInternetAvailablenew() ? false : netfree;
+                }finally {
+                    if (connection != null) {
+                        try{
+                            connection.disconnect();
+                        }catch(Exception e){LogUtil.logToFile(e.toString());}
+                    }
+                }
+            }else if(mPrefs.getBoolean(Prefs.PREF_NETFREE,false)){
+                // the api checker -
             HttpURLConnection connection=null;
             try {
-                URL url = new URL("https://api.internal.netfree.link/user/0");;
-
+                URL url = new URL("https://api.internal.netfree.link/user/0");
                 connection = (HttpURLConnection) url.openConnection();
-              
                 connection.setRequestMethod("GET");
-
-                
+                connection.setReadTimeout(15000);
                 BufferedReader reader = new BufferedReader(
                     new InputStreamReader(connection.getInputStream())
                 );
@@ -366,11 +434,14 @@ public class CaptureService extends VpnService implements Runnable {
                 netfree = isInternetAvailablenew() ? false : netfree;
             }finally {
                 if (connection != null) {
+                    try{
                     connection.disconnect();
+                    }catch(Exception e){LogUtil.logToFile(e.toString());}
                 }
             }
+            }
             return netfree;
-        }*/
+        }
         @Override
         protected void onPostExecute(Boolean netfree) {
             LogUtil.logToFile("netfree="+netfree);
@@ -633,13 +704,20 @@ public class CaptureService extends VpnService implements Runnable {
                         dns_server = fallbackDnsV4;
                     else {
                         mMonitoredNetwork = net.getNetworkHandle();
-                        registerNetworkCallbacks();
+                        //old
+                        //registerNetworkCallbacks();
+                        //
                     }
                 } else
                     dns_server = fallbackDnsV4;
             }
+            //new anyway register
+            registerNetworkCallbacks();
+            //
         }
-
+        
+        LogUtil.logToFile("dns="+dns_server);
+        
         vpn_dns = VPN_VIRTUAL_DNS_SERVER;
         vpn_ipv4 = VPN_IP_ADDRESS;
         last_bytes = 0;
@@ -1103,19 +1181,63 @@ public class CaptureService extends VpnService implements Runnable {
             @Override
             public void onLost(@NonNull Network network) {
                 Log.d(TAG, "onLost " + network);
-
+                
                 // If the network goes offline we roll back to the fallback DNS server to
                 // avoid possibly using a private IP DNS server not reachable anymore
                 if(network.getNetworkHandle() == mMonitoredNetwork) {
                     Log.i(TAG, "Main network " + network + " lost, using fallback DNS " + fallbackDns);
                     dns_server = fallbackDns;
                     mMonitoredNetwork = 0;
-                    unregisterNetworkCallbacks();
+                    //unregisterNetworkCallbacks();
 
                     // change native
                     setDnsServer(dns_server);
                 }
+                LogUtil.logToFile("lost="+dns_server);
             }
+            
+            //new
+            @Override
+            public void onAvailable(@NonNull Network network) {
+                
+                String fallbackDnsV4 = Prefs.getDnsServerV4(mPrefs);
+                dns_server = fallbackDnsV4;
+                
+
+                // Map network interfaces
+                mIfIndexToName = new SparseArray<>();
+
+                Enumeration<NetworkInterface> ifaces = Utils.getNetworkInterfaces();
+                while(ifaces.hasMoreElements()) {
+                    NetworkInterface iface = ifaces.nextElement();
+
+                    Log.d(TAG, "ifidx " + iface.getIndex() + " -> " + iface.getName());
+                    mIfIndexToName.put(iface.getIndex(), iface.getName());
+                }
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    ConnectivityManager cm = (ConnectivityManager) getSystemService(Service.CONNECTIVITY_SERVICE);
+                    Network  net=network;
+                    if(net != null) {
+                        handleLinkProperties(cm.getLinkProperties(net));
+                        
+                        if(Prefs.useSystemDns(mPrefs) || mSettings.root_capture) {
+                            dns_server = Utils.getDnsServer(cm, net);
+                            if (dns_server == null)
+                                dns_server = fallbackDnsV4;
+                            else {
+                                mMonitoredNetwork = net.getNetworkHandle();
+                                //registerNetworkCallbacks();
+                            }
+                        } else
+                            dns_server = fallbackDnsV4;
+                            
+                    }
+                }
+                setDnsServer(dns_server);
+                LogUtil.logToFile("dns="+dns_server);
+            }
+            //
 
             //@RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -1194,6 +1316,7 @@ public class CaptureService extends VpnService implements Runnable {
                 mStrictDnsNoticeShown = true;
                 Utils.showToastLong(this, R.string.private_dns_message_notice);
             }
+            LogUtil.logToFile("linkprop="+mBlockPrivateDns);
         }
     }
 

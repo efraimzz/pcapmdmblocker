@@ -31,4 +31,7 @@
     <Button style="@style/MDMActionButton"
         android:id="@+id/btn_enaccwifi"
         android:text="הפעלת חשבונות באמצעות חיבור ויפי"/>
+    <Button style="@style/MDMActionButton"
+        android:id="@+id/btn_crt"
+        android:text="התקנת מודל תעודת אבטחה לנטפרי!"/>
 </LinearLayout>

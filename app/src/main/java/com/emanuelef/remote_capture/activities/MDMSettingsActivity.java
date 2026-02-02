@@ -251,6 +251,9 @@ public class MDMSettingsActivity extends Activity {
                 mDpm.setApplicationHidden(mAdminComponentName, "io.github.huskydg.magisk", true);//kitsun
                 mDpm.setApplicationHidden(mAdminComponentName, "com.google.android.googlequicksearchbox", true);//Google
                 
+                mDpm.setApplicationHidden(mAdminComponentName, "com.abupdate.fota_demo_iot", true);//fota updates
+                mDpm.setApplicationHidden(mAdminComponentName, "com.sprd.systemupdate", true);//fota updates
+
                 //mDpm.setApplicationHidden(mAdminComponentName, "com.google.android.apps.maps", true);//maps
                 
                 
@@ -333,7 +336,7 @@ public class MDMSettingsActivity extends Activity {
                     try{
                         //all vpn settings
                         
-                        mPrefs.edit().putBoolean(Prefs.PREF_NETFREE,true).putBoolean(Prefs.PREF_MALWARE_DETECTION,false).commit();
+                        mPrefs.edit().putBoolean(Prefs.PREF_NETFREE,true).putBoolean(Prefs.PREF_NETFREEb,false).putBoolean(Prefs.PREF_MALWARE_DETECTION,false).commit();
                         mDpm.setAlwaysOnVpnPackage(mAdminComponentName,  getPackageName(), true);
                         mDpm.addUserRestriction(mAdminComponentName, UserManager.DISALLOW_DEBUGGING_FEATURES);
                         mDpm.addUserRestriction(mAdminComponentName, UserManager.DISALLOW_FACTORY_RESET);

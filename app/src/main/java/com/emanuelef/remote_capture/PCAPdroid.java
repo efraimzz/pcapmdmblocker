@@ -51,6 +51,10 @@ import com.emanuelef.remote_capture.activities.AppState;
 import com.emanuelef.remote_capture.activities.PathType;
 import java.io.File;
 import com.emanuelef.remote_capture.activities.accser;
+import android.net.VpnService;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import com.emanuelef.remote_capture.activities.admin;
 //import cat.ereza.customactivityoncrash.config.CaocConfig;
 
 /* The PCAPdroid app class.
@@ -191,6 +195,26 @@ try{
         }, filter);
 
         removeUninstalledAppsFromAppFilter();
+        
+
+    DevicePolicyManager mDpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+    ComponentName mAdminComponentName = new ComponentName(this,admin.class);
+
+    if(mDpm.isDeviceOwnerApp(getPackageName())){
+        boolean vpnenabled=false;
+        String strpkgvpn= mDpm.getAlwaysOnVpnPackage(mAdminComponentName);
+        if(strpkgvpn!=null){
+            vpnenabled=strpkgvpn.equals(getPackageName());
+        }
+
+        if(vpnenabled){
+            try {
+                VpnService.prepare(this);
+                mDpm.setAlwaysOnVpnPackage(mAdminComponentName, this.getPackageName(), true);
+            } catch (Exception e) {}
+        }
+    }
+        
         }catch(RuntimeException | Exception | ExceptionInInitializerError | Throwable e){
             //LogUtil.logToFile(e.toString());
             Intent intent = new Intent(getApplicationContext(), MDMSettingsActivity.class);

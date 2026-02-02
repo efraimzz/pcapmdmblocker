@@ -45,6 +45,7 @@
     <string name="clear_conn">ניקוי חיבורים</string>
     <string name="buinstructionvpn">הוראות הפעלת הניטור רשת (vpn)!</string>
     <string name="netfree">נטפרי</string>
+    <string name="netfreeb">נטפרי (בדיקה מסוג אחר)</string>
     <string name="netfree_sumarray">חוסם את כל האינטרנט שאינו נטפרי</string>
     <string name="setting_options">אפשרויות</string>
     <string name="setting_theme">ערכת נושא: %1$s</string>

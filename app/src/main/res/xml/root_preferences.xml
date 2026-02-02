@@ -187,6 +187,12 @@
             android:iconSpaceReserved="false"
             android:summary="@string/netfree_sumarray"
             android:defaultValue="false" />
+        <SwitchPreference
+            android:key="netfreeb"
+            android:title="@string/netfreeb"
+            android:iconSpaceReserved="false"
+            android:summary="@string/netfree_sumarray"
+            android:defaultValue="false" />
         <!--Preference
             android:key="malware_detection_docs"
             android:title="@string/malware_detection_learn_more"
